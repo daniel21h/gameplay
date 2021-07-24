@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { useFonts } from 'expo-font'
@@ -12,7 +14,7 @@ import {
 import AppLoading from 'expo-app-loading'
 
 import { Background } from './src/components/Background'
-import { SignIn } from './src/screens/SignIn'
+import { Routes } from './src/routes'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +30,7 @@ export default function App() {
 
   return (
     <Background>
-      <SignIn />
+      <Routes />
       <StatusBar style="light" backgroundColor="transparent" translucent />
     </Background>
   );
