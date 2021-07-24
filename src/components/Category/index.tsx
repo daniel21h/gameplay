@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 import { styles } from './styles'
 import { RectButton } from 'react-native-gesture-handler'
-import { theme } from '../../../../global/styles/theme'
+import { theme } from '../../global/styles/theme'
 
 type Props = RectButtonProps & {
   icon: React.FC<SvgProps>;

@@ -6,7 +6,7 @@ import { ImageBackground, Text, View, FlatList } from 'react-native'
 import { Background } from '../../components/Background'
 import { Header } from '../../components/Header'
 import { ListHeader } from '../../components/ListHeader'
-import { Member } from './components/Member'
+import { Member } from '../../components/Member'
 import { ListDivider } from '../../components/ListDivider'
 import { ButtonIcon } from '../../components/ButtonIcon'
 

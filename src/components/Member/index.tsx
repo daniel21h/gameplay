@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { Avatar } from '../../../../components/Avatar'
-import { theme } from '../../../../global/styles/theme'
+import { Avatar } from '../Avatar'
+import { theme } from '../../global/styles/theme'
 
 import { styles } from './styles'
 
