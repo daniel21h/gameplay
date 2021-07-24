@@ -6,6 +6,7 @@ import { ButtonIcon } from '../../components/ButtonIcon'
 import { Background } from '../../components/Background'
 
 import illustrationImg from '../../assets/illustration.png'
+import discordImg from '../../assets/discord.png'
 
 import { styles } from './styles'
 
@@ -37,6 +38,7 @@ export function SignIn() {
           <ButtonIcon
             title="Entrar com Discord"
             onPress={handleSignIn}
+            icon={discordImg}
           />
         </View>
       </View>

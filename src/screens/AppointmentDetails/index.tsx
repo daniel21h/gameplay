@@ -11,6 +11,7 @@ import { ListDivider } from '../../components/ListDivider'
 import { ButtonIcon } from '../../components/ButtonIcon'
 
 import bannerImg from '../../assets/banner.png'
+import discordImg from '../../assets/discord.png'
 
 import { theme } from '../../global/styles/theme'
 import { styles } from './styles'
@@ -69,7 +70,7 @@ export function AppointmentDetails() {
       />
 
       <View style={styles.footer}>
-        <ButtonIcon title="Entrar no servidor do Discord" />
+        <ButtonIcon title="Entrar no servidor do Discord" icon={discordImg} />
       </View>
     </Background>
   )
