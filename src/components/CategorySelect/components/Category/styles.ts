@@ -14,12 +14,10 @@ export const styles = StyleSheet.create({
   content: {
     width: 100,
     height: 116,
-    backgroundColor: theme.colors.secondary40,
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
+    paddingVertical: 20,
   },
 
   title: {
@@ -29,20 +27,26 @@ export const styles = StyleSheet.create({
   },
 
   check: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+
     width: 12,
     height: 12,
     backgroundColor: theme.colors.secondary100,
-    alignSelf: 'flex-end',
     borderColor: theme.colors.secondary50,
     borderWidth: 1.5,
     borderRadius: 3,
   },
 
   checked: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+
     width: 10,
     height: 10,
     backgroundColor: theme.colors.primary,
-    alignSelf: 'flex-end',
     borderRadius: 3,
   },
 })
