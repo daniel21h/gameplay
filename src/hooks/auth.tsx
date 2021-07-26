@@ -1,7 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 import * as AuthSession from 'expo-auth-session'
-import { discordAuth } from '../configs/discordAuth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { discordAuth } from '../configs/auth'
 import { api } from '../services/api'
+import { storage } from '../configs/storage'
 
 type User = {
   id: string;
@@ -53,8 +56,20 @@ function AuthProvider({ children }: AuthProviderProps) {
         const firstName = userInfo.data.username.split(' ')[0]
         userInfo.data.avatar = `${cdn_image}/avatars/${userInfo.data.id}/${userInfo.data.avatar}.png`
 
-        setUser({ ...userInfo.data, firstName, token: params.access_token })
-        console.log(userInfo)
+        const userData = {
+          ...userInfo.data,
+          firstName,
+          token: params.access_token
+        }
+
+        await AsyncStorage.setItem(
+          storage.collection_users,
+
+          // Tranform value in text to storage
+          JSON.stringify(userData)
+        )
+
+        setUser(userData)
       }
     } catch {
       throw new Error('Não foi possível autenticar.')
@@ -62,6 +77,23 @@ function AuthProvider({ children }: AuthProviderProps) {
       setLoading(false)
     }
   }
+
+  async function loadUserStorageData() {
+    const inStorage = await AsyncStorage.getItem(storage.collection_users)
+
+    if (inStorage) {
+      // Transform in Object
+      const userLogged = JSON.parse(inStorage) as User
+
+      api.defaults.headers.authorization = `Bearer ${userLogged.token}`
+
+      setUser(userLogged)
+    }
+  }
+
+  useEffect(() => {
+    loadUserStorageData()
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, signIn, loading }}>
