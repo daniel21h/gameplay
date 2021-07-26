@@ -1,8 +1,7 @@
 export const discordAuth = {
-  redirect_uri: 'https://auth.expo.io/@anonymous/GamePlay-5186d9fb-5a71-4583-9731-8270a3bd79d4',
-  scope: 'identify%20email%20connections%20guilds',
-  response_type: 'token',
-  client_id: '869188179918479360',
-  cdn_image: 'https://cdn.discordapp.com',
+  redirect_uri: process.env.REDIRECT_URI as string,
+  scope: process.env.SCOPE as string,
+  response_type: process.env.RESPONSE_TYPE as string,
+  client_id: process.env.CLIENT_ID as string,
+  cdn_image: process.env.CDN_IMAGE as string,
 }
-
