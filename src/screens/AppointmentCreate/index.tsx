@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
+import { storage } from '../../configs/storage'
 import { Feather } from '@expo/vector-icons'
+import uuid from 'react-native-uuid'
 
 import { Header } from '../../components/Header'
 import { CategorySelect } from '../../components/CategorySelect'
@@ -23,6 +27,14 @@ export function AppointmentCreate() {
   const [openGuildsModal, setOpenGuildsModal] = useState(false)
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps)
 
+  const [day, setDay] = useState('')
+  const [month, setMonth] = useState('')
+  const [hour, setHour] = useState('')
+  const [minute, setMinute] = useState('')
+  const [description, setDescription] = useState('')
+
+  const navigation = useNavigation()
+
   function handleOpenGuildsModal() {
     setOpenGuildsModal(true)
   }
@@ -38,6 +50,27 @@ export function AppointmentCreate() {
 
   function handleCategorySelect(categoryId: string) {
     setCategory(categoryId)
+  }
+
+  async function handleAppointmentCreate() {
+    const newAppointment = {
+      id: uuid.v4(),
+      guild,
+      category,
+      date: `${day}/${month} às ${hour}:${minute}`,
+      description,
+    }
+
+    const appointmentsInStorage = await AsyncStorage.getItem(storage.collection_appointments)
+
+    const appointments = appointmentsInStorage ? JSON.parse(appointmentsInStorage) : []
+
+    await AsyncStorage.setItem(
+      storage.collection_appointments,
+      JSON.stringify([...appointments, newAppointment])
+    )
+
+    navigation.navigate('Home')
   }
 
   return (
@@ -67,7 +100,7 @@ export function AppointmentCreate() {
           <View style={styles.form}>
             <RectButton onPress={handleOpenGuildsModal}>
               <View style={styles.select}>
-                {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
+                {guild.icon ? <GuildIcon guildId={guild.id} iconId={guild.icon} /> : <View style={styles.image} />}
 
                 <View style={styles.selectBody}>
                   <Text style={styles.label}>
@@ -84,9 +117,17 @@ export function AppointmentCreate() {
                 <Text style={styles.label}>Dia e mês</Text>
 
                 <View style={styles.column}>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setDay}
+                  />
+
                   <Text style={styles.divider}>/</Text>
-                  <SmallInput maxLength={2} />
+
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setMonth}
+                  />
                 </View>
               </View>
 
@@ -94,9 +135,17 @@ export function AppointmentCreate() {
                 <Text style={styles.label}>Horário</Text>
 
                 <View style={styles.column}>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setHour}
+                  />
+
                   <Text style={styles.divider}>:</Text>
-                  <SmallInput maxLength={2} />
+
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setMinute}
+                  />
                 </View>
               </View>
             </View>
@@ -111,10 +160,11 @@ export function AppointmentCreate() {
               maxLength={100}
               numberOfLines={5}
               autoCorrect={false}
+              onChangeText={setDescription}
             />
 
             <View style={styles.footer}>
-              <ButtonIcon title="Agendar" />
+              <ButtonIcon title="Agendar" onPress={handleAppointmentCreate} />
             </View>
           </View>
         </ScrollView>
