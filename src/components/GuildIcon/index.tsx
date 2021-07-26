@@ -1,12 +1,26 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { View, Image } from 'react-native'
+import { discordAuth } from '../../configs/auth'
+
+import DiscordSvg from '../../assets/discord.svg'
 
 import { styles } from './styles'
 
-export function GuildIcon() {
-  const uri = 'https://compass-ssl.xboxlive.com/assets/bd/41/bd418968-f6c8-4a17-8f69-75688c5ce6ae.jpg?n=FH4-Porsche_911_GT3_RS-545x307-FMnet_Thumbnail.jpg'
+type Props = {
+  guildId: string;
+  iconId: string | null;
+}
+
+export function GuildIcon({ guildId, iconId }: Props) {
+  const uri = `${discordAuth.cdn_image}/icons/${guildId}/${iconId}.png`
 
   return (
-    <Image style={styles.image} source={{ uri }} resizeMode="cover" />
+    <View style={styles.container}>
+      {
+        iconId
+          ? <Image style={styles.image} source={{ uri }} resizeMode="cover" />
+          : <DiscordSvg width={40} height={40} />
+      }
+    </View>
   )
 }
