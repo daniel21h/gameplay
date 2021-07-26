@@ -9,6 +9,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
+  guildIconContainer: {
+    width: 64,
+    height: 64,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 20,
+  },
+
   content: {
     flex: 1,
     justifyContent: 'center',
@@ -18,13 +27,13 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.title700,
     fontSize: 18,
     color: theme.colors.heading,
-    marginBottom: 11,
+    marginBottom: 4,
   },
 
   type: {
     fontFamily: theme.fonts.text400,
     fontSize: 13,
     color: theme.colors.highlight,
-    marginBottom: 24,
+    // marginBottom: 12,
   },
 })
