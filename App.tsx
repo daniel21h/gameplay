@@ -39,3 +39,10 @@ export default function App() {
     </Background>
   );
 }
+
+/** Ignore warnings on terminal */
+// import { LogBox } from 'react-native
+// 
+// LogBox.ignoreLogs([<'Initial Name Warning'>])
+// 
+/** Ignore warnings on terminal */
