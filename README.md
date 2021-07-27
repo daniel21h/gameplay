@@ -3,7 +3,7 @@
 ![Badge](https://img.shields.io/static/v1?label=DH&message=DOSOMETHINGGREAT&color=0070f3&style=<0070f3>&logo=rocket)
 
 
-### Projeto
+## Projeto
 Aplicativo para lhe ajudar a conectar-se e organiza o momento de diversão e jogar com os amigos. Crie grupos para jogar seus games favoritos com seus amigos com esse App que possui autenticação com Discord.
 
 
@@ -39,7 +39,7 @@ Aplicativo para lhe ajudar a conectar-se e organiza o momento de diversão e jog
 -   [ ] React Native Share
 -   [ ] Deep Link
 
-### Requisitos básicos
+## Requisitos básicos
 
 Antes de começar, você precisará ter as seguintes ferramentas instaladas em sua máquina:
 - [Git](https://git-scm.com)
