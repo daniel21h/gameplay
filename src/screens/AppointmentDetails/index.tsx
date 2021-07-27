@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { ImageBackground, Text, View, FlatList, Alert } from 'react-native'
+import { ImageBackground, Text, View, FlatList, Alert, Share, Platform } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
+import * as Linking from 'expo-linking'
 
 import { Background } from '../../components/Background'
 import { Header } from '../../components/Header'
@@ -53,6 +54,22 @@ export function AppointmentDetails() {
     }
   }
 
+  function handleShareInvite() {
+    try {
+      const message = Platform.OS === 'ios'
+        ? `Junte-se a ${appointmentSelected.guild.name}`
+        : widget.instant_invite
+
+      Share.share({ message, url: widget.instant_invite })
+    } catch {
+      Alert.alert('Algo deu errado, confira as configurações do seu servidor!')
+    }
+  }
+
+  function handleOpenGuild() {
+    Linking.openURL(widget.instant_invite)
+  }
+
   useEffect(() => {
     fetchGuildWidget()
   }, [])
@@ -62,7 +79,8 @@ export function AppointmentDetails() {
       <Header
         title="Detalhes"
         action={
-          <BorderlessButton>
+          appointmentSelected.guild.owner &&
+          <BorderlessButton onPress={handleShareInvite}>
             <Fontisto name="share" size={24} color={primary} />
           </BorderlessButton>
         }
@@ -99,9 +117,11 @@ export function AppointmentDetails() {
         )
       }
 
-      <View style={styles.footer}>
-        <ButtonIcon title="Entrar no servidor do Discord" icon={discordImg} />
-      </View>
+      {appointmentSelected.guild.owner && (
+        <View style={styles.footer}>
+          <ButtonIcon title="Entrar no servidor do Discord" icon={discordImg} onPress={handleOpenGuild} />
+        </View>
+      )}
     </Background>
   )
 }

@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native";
+import { getBottomSpace } from "react-native-iphone-x-helper";
 import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 100,
+  },
+
+  modal: {
+    paddingBottom: getBottomSpace() + 24,
   },
 
   overlay: {

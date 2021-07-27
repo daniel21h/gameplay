@@ -8,19 +8,21 @@ import { styles } from './styles'
 type Props = ModalProps & {
   children: ReactNode;
   closeModal: () => void;
+  marginTop: string;
 }
 
-export function ModalView({ children, closeModal, ...rest }: Props) {
+export function ModalView({ children, closeModal, marginTop, ...rest }: Props) {
   return (
     <Modal
       transparent
       animationType="slide"
       statusBarTranslucent
       {...rest}
+      style={styles.modal}
     >
       <TouchableWithoutFeedback onPress={closeModal}>
         <View style={styles.overlay}>
-          <View style={styles.container}>
+          <View style={[styles.container, { marginTop }]}>
             <Background>
               <View style={styles.bar} />
               {children}
